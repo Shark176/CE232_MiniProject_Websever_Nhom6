@@ -1,0 +1,51 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 2em; /* Kích thước phù hợp cho tiêu đề lớn */
+    margin-bottom: 20px; /* Thêm khoảng cách dưới tiêu đề */
+    text-transform: uppercase; /* Chuyển đổi chữ thành in hoa */
+    font-family: 'Roboto', sans-serif; /* Sử dụng font chữ Roboto */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Đổ bóng chữ */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Căn giữa nội dung trong container */
+}
+
+#chart_div {
+    width: 100%;
+    height: 500px;
+}
+
+.refresh-button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.refresh-button:hover {
+    background-color: #0056b3;
+}

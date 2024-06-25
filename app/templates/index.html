@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MQTT Flask Example</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        var socket = io();
+
+        socket.on('mqtt_message', function(mqttData) {
+            location.reload();
+        });
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Thời Gian');
+            data.addColumn('number', 'Nhiệt Độ');
+            data.addColumn('number', 'Độ Ẩm');
+
+            var rawData = [
+                {% for entry in data %}
+                    [new Date("{{ entry.time }}"), {{ entry.temperature }}, {{ entry.humidity }}],
+                {% endfor %}
+            ];
+            data.addRows(rawData);
+            var options = {
+                title: 'Biểu Đồ Nhiệt Độ và Độ Ẩm',
+                titleTextStyle: {
+                    fontSize: 24,
+                    bold: true,
+                    textAlign: 'center',
+                    fontFamily: 'Roboto, sans-serif',
+                    textTransform: 'uppercase',
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.4)' // Đổ bóng chữ
+                },
+                hAxis: {
+                    title: 'Thời Gian',
+                    titleTextStyle: {color: '#333'},
+                    format: 'HH:mm:ss'
+                },
+                vAxes: {
+                    0: {title: 'Nhiệt Độ (°C)', minValue: 0, maxValue: 50},
+                    1: {title: 'Độ Ẩm (%)', minValue: 0, maxValue: 100}
+                },
+                series: {
+                    0: {targetAxisIndex: 0, color: '#FF5733'},
+                    1: {targetAxisIndex: 1, color: '#33FF57'}
+                },
+                legend: {position: 'bottom'}
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        
+    </script>
+
+</head>
+<body>
+    <header>MiniProject CE232.O21.1 Nhóm 6</header>
+    <div class="container">
+        <div id="chart_div"></div>
+        <button class="refresh-button" onclick="refreshPage()">Refresh Page</button>
+    </div>
+</body>
+</html>
